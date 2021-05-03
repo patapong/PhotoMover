@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Config"
+    targetNamespace="http://tempuri.org/Config.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/Config.xsd"
+    xmlns:mstns="http://tempuri.org/Config.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="Config" type="xs:ENTITY"></xs:element>
+  <xs:element name ="Src" type="xs:string"></xs:element>
+  <xs:element name="SrcSub" type="xs:int"/>
+  <xs:element name="Dest" type="xs:string"></xs:element>
+  <xs:element name="Struct" type="xs:string"></xs:element>
+  <xs:element name="ExistTarget" type="xs:int"/>
+  <xs:element name="CopyOrMove" type="xs:int"/>
+    
+</xs:schema>
