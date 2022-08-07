@@ -6,25 +6,34 @@ using System.Text;
 
 namespace PhotoMover
 {
-    class DefaultInfoReader : DateProviderBase
+    class DefaultInfoReader : IDateExtractor
     {
         public static readonly string EXT = ".*";
+        public string Name { get; } = "DefaultBasic";
         private static DefaultInfoReader _instance = new DefaultInfoReader();
-     
-        public static DefaultInfoReader Instance
+        
+        public static IDateExtractor Instance
         {
             get { return _instance; }          
         }
 
-        public override DateTime GetDate(string filePath)
+        public DateTime GetDate(string filePath, out string info)
         {
-            FileInfo info = new FileInfo(filePath);
-            return info.LastWriteTime;
+            info = "Date aquired from the file's LastWriteTime.";
+            FileInfo fileInfo = new FileInfo(filePath);
+            return fileInfo.LastWriteTime;
         }
 
-        public override void Register()
+        public void Register()
         {
-            FileProcessorFactory.addExt(EXT, _instance);
+            Config.GetConfig().AddExtractorForExt(EXT, _instance);
+            foreach (var item in Config.GetConfig().Extractors.Values.SelectMany(v => v))
+            { //if there are extensions configured to use DefaultBasic, we just fill in the instance for the proxy here.
+                if (item.Name.Equals(Name))
+                {
+                    item.Instance = _instance;
+                }
+            }
         }
     }
 }

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PhotoMover</RootNamespace>
     <AssemblyName>PhotoMover</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>PhotoMover.Program</StartupObject>
     <ApplicationIcon>Icon1.ico</ApplicationIcon>
@@ -56,6 +56,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MetadataExtractor, Version=2.7.2.0, Culture=neutral, PublicKeyToken=b66b5ccaf776c301, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetadataExtractor.2.7.2\lib\net45\MetadataExtractor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -73,32 +80,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="DateExtractorProxy.cs" />
     <Compile Include="DefaultInfoReader.cs" />
-    <Compile Include="ExifLib.cs" />
-    <Compile Include="DateProviderBase.cs" />
-    <Compile Include="FileProcessorFactory.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="IDateExtractor.cs" />
+    <Compile Include="JobDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="JobDetailsForm.Designer.cs">
+      <DependentUpon>JobDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IniFile.cs" />
-    <Compile Include="JpgDataProvider.cs" />
-    <Compile Include="LangRes.Designer.cs">
+    <Compile Include="JobUnit.cs" />
+    <Compile Include="PluginManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PluginManager.Designer.cs">
+      <DependentUpon>PluginManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LangRes.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ListViewItemComparer.cs" />
+    <Compile Include="MetadataExtractor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="XmpDateExtractor.cs" />
+    <EmbeddedResource Include="JobDetailsForm.resx">
+      <DependentUpon>JobDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LangRes.resx">
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PluginManager.resx">
+      <DependentUpon>PluginManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LangRes.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -111,9 +138,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="Config.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <None Include="PhotoMover.cfg" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

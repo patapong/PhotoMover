@@ -1,6 +1,6 @@
 ﻿namespace PhotoMover
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -36,7 +36,7 @@
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "bbb",
             "bbb"}, -1);
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnOk = new System.Windows.Forms.Button();
             this.chkSub = new System.Windows.Forms.CheckBox();
             this.cbTreeType = new System.Windows.Forms.ComboBox();
@@ -62,19 +62,25 @@
             this.tssRenamed = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssError = new System.Windows.Forms.ToolStripStatusLabel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbSrc = new System.Windows.Forms.ComboBox();
             this.btnStop = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Source = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Dest = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Logs = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gridMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.retryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goSource = new System.Windows.Forms.ToolStripMenuItem();
             this.goDest = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbDest = new System.Windows.Forms.ComboBox();
             this.chkEmpty = new System.Windows.Forms.CheckBox();
+            this.btPauseResume = new System.Windows.Forms.Button();
+            this.btMgr = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -84,9 +90,10 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(491, 214);
+            this.btnOk.Location = new System.Drawing.Point(860, 330);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(88, 47);
+            this.btnOk.Size = new System.Drawing.Size(132, 72);
             this.btnOk.TabIndex = 9;
             this.btnOk.Text = "开始";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -95,11 +102,10 @@
             // chkSub
             // 
             this.chkSub.AutoSize = true;
-            this.chkSub.Checked = true;
-            this.chkSub.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSub.Location = new System.Drawing.Point(193, 39);
+            this.chkSub.Location = new System.Drawing.Point(290, 60);
+            this.chkSub.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkSub.Name = "chkSub";
-            this.chkSub.Size = new System.Drawing.Size(86, 17);
+            this.chkSub.Size = new System.Drawing.Size(115, 24);
             this.chkSub.TabIndex = 2;
             this.chkSub.Text = "处理子目录";
             this.chkSub.UseVisualStyleBackColor = true;
@@ -120,17 +126,19 @@
             "yy\\mm\\dd",
             "yy\\mmdd",
             "yyyy\\yyyy-mm\\yyyymmdd"});
-            this.cbTreeType.Location = new System.Drawing.Point(87, 114);
+            this.cbTreeType.Location = new System.Drawing.Point(130, 175);
+            this.cbTreeType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbTreeType.Name = "cbTreeType";
-            this.cbTreeType.Size = new System.Drawing.Size(578, 26);
+            this.cbTreeType.Size = new System.Drawing.Size(865, 34);
             this.cbTreeType.TabIndex = 6;
             this.cbTreeType.Text = "yyyy\\yyyy-mm\\yyyymmdd";
             // 
             // btnD
             // 
-            this.btnD.Location = new System.Drawing.Point(13, 71);
+            this.btnD.Location = new System.Drawing.Point(20, 109);
+            this.btnD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnD.Name = "btnD";
-            this.btnD.Size = new System.Drawing.Size(66, 22);
+            this.btnD.Size = new System.Drawing.Size(99, 34);
             this.btnD.TabIndex = 4;
             this.btnD.Text = "目标目录";
             this.btnD.UseVisualStyleBackColor = true;
@@ -138,9 +146,10 @@
             // 
             // btnS
             // 
-            this.btnS.Location = new System.Drawing.Point(13, 11);
+            this.btnS.Location = new System.Drawing.Point(20, 17);
+            this.btnS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnS.Name = "btnS";
-            this.btnS.Size = new System.Drawing.Size(66, 22);
+            this.btnS.Size = new System.Drawing.Size(99, 34);
             this.btnS.TabIndex = 0;
             this.btnS.Text = "源目录";
             this.btnS.UseVisualStyleBackColor = true;
@@ -158,9 +167,11 @@
             this.groupBox1.Controls.Add(this.rbtRename);
             this.groupBox1.Controls.Add(this.rbtReplace);
             this.groupBox1.Controls.Add(this.rbtSkip);
-            this.groupBox1.Location = new System.Drawing.Point(13, 162);
+            this.groupBox1.Location = new System.Drawing.Point(20, 249);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(655, 46);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(982, 71);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "如果目标文件已存在";
@@ -168,20 +179,22 @@
             // rbtRename
             // 
             this.rbtRename.AutoSize = true;
-            this.rbtRename.Location = new System.Drawing.Point(74, 21);
+            this.rbtRename.Location = new System.Drawing.Point(482, 32);
+            this.rbtRename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtRename.Name = "rbtRename";
-            this.rbtRename.Size = new System.Drawing.Size(49, 17);
-            this.rbtRename.TabIndex = 0;
+            this.rbtRename.Size = new System.Drawing.Size(66, 24);
+            this.rbtRename.TabIndex = 2;
             this.rbtRename.Text = "改名";
             this.rbtRename.UseVisualStyleBackColor = true;
             // 
             // rbtReplace
             // 
             this.rbtReplace.AutoSize = true;
-            this.rbtReplace.Location = new System.Drawing.Point(165, 21);
+            this.rbtReplace.Location = new System.Drawing.Point(248, 32);
+            this.rbtReplace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtReplace.Name = "rbtReplace";
-            this.rbtReplace.Size = new System.Drawing.Size(49, 17);
-            this.rbtReplace.TabIndex = 1;
+            this.rbtReplace.Size = new System.Drawing.Size(66, 24);
+            this.rbtReplace.TabIndex = 0;
             this.rbtReplace.Text = "覆盖";
             this.rbtReplace.UseVisualStyleBackColor = true;
             // 
@@ -189,10 +202,11 @@
             // 
             this.rbtSkip.AutoSize = true;
             this.rbtSkip.Checked = true;
-            this.rbtSkip.Location = new System.Drawing.Point(249, 21);
+            this.rbtSkip.Location = new System.Drawing.Point(374, 32);
+            this.rbtSkip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtSkip.Name = "rbtSkip";
-            this.rbtSkip.Size = new System.Drawing.Size(49, 17);
-            this.rbtSkip.TabIndex = 2;
+            this.rbtSkip.Size = new System.Drawing.Size(66, 24);
+            this.rbtSkip.TabIndex = 1;
             this.rbtSkip.TabStop = true;
             this.rbtSkip.Text = "跳过";
             this.rbtSkip.UseVisualStyleBackColor = true;
@@ -203,9 +217,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.rbtCopy);
             this.groupBox2.Controls.Add(this.rbtMove);
-            this.groupBox2.Location = new System.Drawing.Point(13, 214);
+            this.groupBox2.Location = new System.Drawing.Point(20, 329);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(472, 47);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(489, 72);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "复制方式";
@@ -213,36 +229,40 @@
             // rbtCopy
             // 
             this.rbtCopy.AutoSize = true;
-            this.rbtCopy.Location = new System.Drawing.Point(74, 22);
+            this.rbtCopy.Checked = true;
+            this.rbtCopy.Location = new System.Drawing.Point(111, 34);
+            this.rbtCopy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtCopy.Name = "rbtCopy";
-            this.rbtCopy.Size = new System.Drawing.Size(49, 17);
+            this.rbtCopy.Size = new System.Drawing.Size(66, 24);
             this.rbtCopy.TabIndex = 0;
+            this.rbtCopy.TabStop = true;
             this.rbtCopy.Text = "复制";
             this.rbtCopy.UseVisualStyleBackColor = true;
             // 
             // rbtMove
             // 
             this.rbtMove.AutoSize = true;
-            this.rbtMove.Checked = true;
-            this.rbtMove.Location = new System.Drawing.Point(165, 22);
+            this.rbtMove.Location = new System.Drawing.Point(248, 34);
+            this.rbtMove.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtMove.Name = "rbtMove";
-            this.rbtMove.Size = new System.Drawing.Size(49, 17);
+            this.rbtMove.Size = new System.Drawing.Size(66, 24);
             this.rbtMove.TabIndex = 1;
-            this.rbtMove.TabStop = true;
             this.rbtMove.Text = "移动";
             this.rbtMove.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 120);
+            this.label1.Location = new System.Drawing.Point(27, 185);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.Size = new System.Drawing.Size(73, 20);
             this.label1.TabIndex = 12;
             this.label1.Text = "目录结构";
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssTotal,
             this.toolStripStatusLabel2,
@@ -253,9 +273,10 @@
             this.tssRenamed,
             this.toolStripStatusLabel5,
             this.tssError});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 702);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1082);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(674, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1011, 32);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
@@ -263,81 +284,81 @@
             // tssTotal
             // 
             this.tssTotal.Name = "tssTotal";
-            this.tssTotal.Size = new System.Drawing.Size(44, 17);
+            this.tssTotal.Size = new System.Drawing.Size(68, 25);
             this.tssTotal.Text = "Total: 0";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(16, 25);
             this.toolStripStatusLabel2.Text = "|";
             // 
             // tssCurrent
             // 
             this.tssCurrent.Name = "tssCurrent";
-            this.tssCurrent.Size = new System.Drawing.Size(59, 17);
+            this.tssCurrent.Size = new System.Drawing.Size(89, 25);
             this.tssCurrent.Text = "Current: 0";
             // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(16, 25);
             this.toolStripStatusLabel4.Text = "|";
             // 
             // tssSkipped
             // 
             this.tssSkipped.Name = "tssSkipped";
-            this.tssSkipped.Size = new System.Drawing.Size(52, 17);
+            this.tssSkipped.Size = new System.Drawing.Size(81, 25);
             this.tssSkipped.Text = "Skipped:";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(16, 25);
             this.toolStripStatusLabel1.Text = "|";
             // 
             // tssRenamed
             // 
             this.tssRenamed.Name = "tssRenamed";
-            this.tssRenamed.Size = new System.Drawing.Size(60, 17);
+            this.tssRenamed.Size = new System.Drawing.Size(90, 25);
             this.tssRenamed.Text = "Renamed:";
             // 
             // toolStripStatusLabel5
             // 
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(16, 25);
             this.toolStripStatusLabel5.Text = "|";
             // 
             // tssError
             // 
             this.tssError.Name = "tssError";
-            this.tssError.Size = new System.Drawing.Size(44, 17);
+            this.tssError.Size = new System.Drawing.Size(69, 25);
             this.tssError.Text = "Error: 0";
             // 
-            // comboBox1
+            // cbSrc
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbSrc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "D:\\Photos\\100EOS5D",
-            "K:\\DCIM",
+            this.cbSrc.FormattingEnabled = true;
+            this.cbSrc.Items.AddRange(new object[] {
             "E:\\DCIM",
             "F:\\DCIM",
             "G:\\DCIM"});
-            this.comboBox1.Location = new System.Drawing.Point(85, 11);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(583, 21);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.Text = "D:\\Trans";
+            this.cbSrc.Location = new System.Drawing.Point(128, 17);
+            this.cbSrc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbSrc.Name = "cbSrc";
+            this.cbSrc.Size = new System.Drawing.Size(872, 28);
+            this.cbSrc.TabIndex = 1;
+            this.cbSrc.Text = "F:\\DCIM\\";
             // 
             // btnStop
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnStop.Location = new System.Drawing.Point(583, 214);
+            this.btnStop.Location = new System.Drawing.Point(860, 330);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(86, 47);
+            this.btnStop.Size = new System.Drawing.Size(129, 72);
             this.btnStop.TabIndex = 9;
             this.btnStop.Text = "停止";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -348,9 +369,10 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.YellowGreen;
-            this.panel1.Location = new System.Drawing.Point(12, 264);
+            this.panel1.Location = new System.Drawing.Point(18, 406);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(655, 10);
+            this.panel1.Size = new System.Drawing.Size(982, 15);
             this.panel1.TabIndex = 16;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
             // 
@@ -362,7 +384,8 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Source,
             this.Dest,
-            this.Status});
+            this.Status,
+            this.Logs});
             this.listView1.ContextMenuStrip = this.gridMenu;
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listView1.FullRowSelect = true;
@@ -371,13 +394,15 @@
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2});
-            this.listView1.Location = new System.Drawing.Point(12, 281);
+            this.listView1.Location = new System.Drawing.Point(18, 432);
+            this.listView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(658, 418);
+            this.listView1.Size = new System.Drawing.Size(985, 641);
             this.listView1.TabIndex = 10;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseClick);
             // 
@@ -389,79 +414,133 @@
             // Dest
             // 
             this.Dest.Text = "Dest";
-            this.Dest.Width = 128;
+            this.Dest.Width = 115;
             // 
             // Status
             // 
             this.Status.Text = "Status";
+            this.Status.Width = 123;
+            // 
+            // Logs
+            // 
+            this.Logs.Text = "Logs";
+            this.Logs.Width = 450;
             // 
             // gridMenu
             // 
+            this.gridMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.gridMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.retryToolStripMenuItem,
             this.goSource,
             this.goDest,
+            this.undoToolStripMenuItem,
             this.exportToolStripMenuItem});
             this.gridMenu.Name = "gridMenu";
-            this.gridMenu.Size = new System.Drawing.Size(144, 70);
+            this.gridMenu.Size = new System.Drawing.Size(188, 164);
+            // 
+            // retryToolStripMenuItem
+            // 
+            this.retryToolStripMenuItem.Name = "retryToolStripMenuItem";
+            this.retryToolStripMenuItem.Size = new System.Drawing.Size(187, 32);
+            this.retryToolStripMenuItem.Text = "Retry";
+            this.retryToolStripMenuItem.Click += new System.EventHandler(this.retryToolStripMenuItem_Click);
             // 
             // goSource
             // 
             this.goSource.Name = "goSource";
-            this.goSource.Size = new System.Drawing.Size(143, 22);
+            this.goSource.Size = new System.Drawing.Size(187, 32);
             this.goSource.Text = "Go Source";
             this.goSource.Click += new System.EventHandler(this.goSource_Click);
             // 
             // goDest
             // 
             this.goDest.Name = "goDest";
-            this.goDest.Size = new System.Drawing.Size(143, 22);
+            this.goDest.Size = new System.Drawing.Size(187, 32);
             this.goDest.Text = "Go Dest";
             this.goDest.Click += new System.EventHandler(this.goDest_Click);
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(187, 32);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(187, 32);
             this.exportToolStripMenuItem.Text = "Export Result";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
-            // comboBox2
+            // cbDest
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbDest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "D:\\Photos\\100EOS5D"});
-            this.comboBox2.Location = new System.Drawing.Point(87, 71);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(583, 21);
-            this.comboBox2.TabIndex = 5;
-            this.comboBox2.Text = "D:\\Photos\\100EOS5D";
+            this.cbDest.FormattingEnabled = true;
+            this.cbDest.Items.AddRange(new object[] {
+            "D:\\Photos\\"});
+            this.cbDest.Location = new System.Drawing.Point(130, 109);
+            this.cbDest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbDest.Name = "cbDest";
+            this.cbDest.Size = new System.Drawing.Size(872, 28);
+            this.cbDest.TabIndex = 5;
+            this.cbDest.Text = "D:\\Photos";
             // 
             // chkEmpty
             // 
             this.chkEmpty.AutoSize = true;
-            this.chkEmpty.Checked = true;
-            this.chkEmpty.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEmpty.Location = new System.Drawing.Point(285, 39);
+            this.chkEmpty.Location = new System.Drawing.Point(428, 60);
+            this.chkEmpty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkEmpty.Name = "chkEmpty";
-            this.chkEmpty.Size = new System.Drawing.Size(86, 17);
+            this.chkEmpty.Size = new System.Drawing.Size(115, 24);
             this.chkEmpty.TabIndex = 3;
             this.chkEmpty.Text = "删除空目录";
             this.chkEmpty.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // btPauseResume
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.btPauseResume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPauseResume.Location = new System.Drawing.Point(715, 329);
+            this.btPauseResume.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btPauseResume.Name = "btPauseResume";
+            this.btPauseResume.Size = new System.Drawing.Size(132, 72);
+            this.btPauseResume.TabIndex = 17;
+            this.btPauseResume.Text = "暂停";
+            this.btPauseResume.UseVisualStyleBackColor = true;
+            this.btPauseResume.Visible = false;
+            this.btPauseResume.Click += new System.EventHandler(this.btPauseResume_Click);
+            // 
+            // btMgr
+            // 
+            this.btMgr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btMgr.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btMgr.Location = new System.Drawing.Point(516, 338);
+            this.btMgr.Name = "btMgr";
+            this.btMgr.Size = new System.Drawing.Size(64, 58);
+            this.btMgr.TabIndex = 18;
+            this.btMgr.Text = "⚙";
+            this.btMgr.UseVisualStyleBackColor = true;
+            this.btMgr.Click += new System.EventHandler(this.btMgr_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "CSV files|*.csv|All files|*.*";
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 724);
+            this.ClientSize = new System.Drawing.Size(1011, 1114);
+            this.Controls.Add(this.btMgr);
+            this.Controls.Add(this.btPauseResume);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.chkEmpty);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cbDest);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbSrc);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cbTreeType);
             this.Controls.Add(this.label1);
@@ -471,8 +550,9 @@
             this.Controls.Add(this.btnD);
             this.Controls.Add(this.chkSub);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Photo Mover";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -509,7 +589,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tssTotal;
         private System.Windows.Forms.ToolStripStatusLabel tssCurrent;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbSrc;
         private System.Windows.Forms.ToolStripStatusLabel tssSkipped;
         private System.Windows.Forms.ToolStripStatusLabel tssRenamed;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
@@ -521,13 +601,19 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader Source;
         private System.Windows.Forms.ColumnHeader Dest;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbDest;
         private System.Windows.Forms.CheckBox chkEmpty;
         private System.Windows.Forms.ColumnHeader Status;
         private System.Windows.Forms.ContextMenuStrip gridMenu;
         private System.Windows.Forms.ToolStripMenuItem goSource;
         private System.Windows.Forms.ToolStripMenuItem goDest;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.Button btPauseResume;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.Button btMgr;
+        private System.Windows.Forms.ColumnHeader Logs;
+        private System.Windows.Forms.ToolStripMenuItem retryToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
