@@ -25,7 +25,10 @@ namespace PhotoMover
                     if (line.Contains("exif:DateTimeOriginal"))
                     {
                         string timeStr = line.Split('=')[1].Trim('"');
-                        date = DateTime.ParseExact(timeStr, "yyyy-MM-ddTHH:mm:ss.ffzzz", CultureInfo.InvariantCulture);
+                        if(timeStr.Length > 19)
+                            date = DateTime.ParseExact(timeStr, "yyyy-MM-ddTHH:mm:ss.ffzzz", CultureInfo.InvariantCulture);
+                        else
+                            date = DateTime.ParseExact(timeStr, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
                         found = true;
                         break;
                     }

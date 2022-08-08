@@ -86,6 +86,11 @@ namespace PhotoMover
                         _skipped++;
                         UpdateStatusBar(tssSkipped, Resources.str_skip + _skipped);
                         break;
+                    case JobStatus.Rename_Copied:
+                    case JobStatus.Rename_Moved:
+                        _renamed++;
+                        UpdateStatusBar(tssRenamed, Resources.str_rename + _renamed);
+                        break;
                     case JobStatus.Copied:
                     case JobStatus.Moved:
                     default:
@@ -246,8 +251,6 @@ namespace PhotoMover
                     lvi.SubItems.Add(job.Status.ToString());
                     lvi.SubItems.Add(job.StatusLog);
                 }
-
-
 
                 //scroll to end
                 int visibleItems = listView1.ClientSize.Height / listView1.Items[0].Bounds.Height;

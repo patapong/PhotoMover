@@ -84,10 +84,13 @@ namespace PhotoMover
             cfg.AddExtractorForExt(".cr2", _instance);
             cfg.AddExtractorForExt(".cr3", _instance);
             cfg.AddExtractorForExt(".dng", _instance);
-            cfg.AddExtractorForExt(".nef", _instance);
-            cfg.AddExtractorForExt(".arw", _instance);
-            cfg.AddExtractorForExt(".raf", _instance);
-
+            cfg.AddExtractorForExt(".nef", _instance);//nikon
+            cfg.AddExtractorForExt(".arw", _instance);//sony
+            cfg.AddExtractorForExt(".raf", _instance);//Fujifilm
+            cfg.AddExtractorForExt(".orf", _instance);//Olympus
+            cfg.AddExtractorForExt(".rw2", _instance);//Panasonic
+            cfg.AddExtractorForExt(".rwl", _instance);//Leica
+            cfg.AddExtractorForExt(".srw", _instance);//Samsung
             //allow new extension add from config file, if you know MetadataExtractor supports it
             foreach (var item in Config.GetConfig().Extractors.Values.SelectMany(v => v))
             {
