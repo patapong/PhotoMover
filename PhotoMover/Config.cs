@@ -1,24 +1,29 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace PhotoMover
 {
+    [DataContract]
     public class Config
     {
         private static Config instance;
+        public static readonly DataContractJsonSerializerSettings Settings = new DataContractJsonSerializerSettings { UseSimpleDictionaryFormat = true };
         public static Config InitConfig(string configPath)
         {
             if (File.Exists(configPath))
             {
-                TextReader reader = new StreamReader(configPath);
-                instance = JsonConvert.DeserializeObject<Config>(reader.ReadToEnd());
-                reader.Close();
-                if(instance.Extractors == null)
+                var ser = new DataContractJsonSerializer(typeof(Config), Settings);
+                Stream stream = new FileStream(configPath, FileMode.Open, FileAccess.Read);
+                instance = (Config)ser.ReadObject(stream);
+                stream.Close();
+                //TextReader reader = new StreamReader(configPath);
+                //instance = JsonConvert.DeserializeObject<Config>(reader.ReadToEnd());
+                //reader.Close();
+
+                if (instance.Extractors == null)
                 {
                     instance.Extractors = new Dictionary<string, List<DateExtractorProxy>>();
                 }
@@ -41,28 +46,49 @@ namespace PhotoMover
         }
         public void SaveConfig(string configPath)
         {
-            TextWriter tw = new StreamWriter(configPath);
-            JsonSerializer jsz = JsonSerializer.Create(new JsonSerializerSettings() { Formatting = Formatting.Indented });
-            jsz.Serialize(tw, instance);
-            tw.Close();
+            using (var stream = File.Open(configPath, FileMode.Create))
+            {
+                using (var writer = JsonReaderWriterFactory.CreateJsonWriter(
+                        stream, System.Text.Encoding.UTF8, true, true, "  "))
+                {
+                    var serializer = new DataContractJsonSerializer(typeof(Config), Settings);
+                    serializer.WriteObject(writer, instance);
+                    writer.Close();
+                }
+            }
+            //TextWriter tw = new StreamWriter(configPath);
+            //JsonSerializer jsz = JsonSerializer.Create(new JsonSerializerSettings() { Formatting = Formatting.Indented });
+            //jsz.Serialize(tw, instance);
+            //tw.Close();
         }
         
+        [DataMember(Order = 1)]
         public string SourceBasePath { get; set; }
+        [DataMember(Order = 2)]
         public string TargetBasePath { get; set; }
+        [DataMember(Order = 3)]
         public string FolderStructure { get; set; }
 
+        [DataMember(Order = 4)]
         public bool DeleteEmptySrcFolder { get; set; }
-
+        [DataMember(Order = 5)]
         public RuleForTargetExists TargetRule { get; set; }
+        [DataMember(Order = 6)]
         public bool Recursive { get; set; }
-        
+
         //if true, means Move. if false means copy
+        [DataMember(Order = 7)]
         public bool DeleteSourceFile { get; set; }
+        [DataMember(Order = 8)]
         public bool ShowList { get; set; }
-        
+        [DataMember(Order = 9)]
         public List<string> HistorySourcePathes { get; set; }
+        [DataMember(Order = 10)]
         public List<string> HistoryTargetPathes { get; set; }
+        [DataMember(Order = 11)]
         public List<string> HistoryFolderStructures { get; set; }
+
+        [DataMember(Order = 99)]
         public Dictionary<string,List<DateExtractorProxy>> Extractors { get; set; }
         public List<DateExtractorProxy> GetExtractorsForExt(string ext)
         {
