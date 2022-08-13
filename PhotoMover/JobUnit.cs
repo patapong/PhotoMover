@@ -51,9 +51,9 @@ namespace PhotoMover
             Status = JobStatus.InProgress;
             
             RealTargetPath = CalculatedTargetPath;
-            string destDirName = Path.GetDirectoryName(CalculatedTargetPath);
-
-            createFolder(cfg.TargetBasePath, destDirName.Substring(cfg.TargetBasePath.Length));
+            string targetDirName = Path.GetDirectoryName(CalculatedTargetPath);
+            
+            createFolder(cfg.TargetBasePath, targetDirName.Substring(cfg.TargetBasePath.Length));
             
             if (File.Exists(CalculatedTargetPath))
             {
@@ -68,9 +68,9 @@ namespace PhotoMover
                     int num = 2;
                     while (num < 1000)
                     {
-                        if (!File.Exists(destDirName + @"\" + srcFileName.Replace(extension, " (" + num.ToString() + ")" + extension)))
+                        if (!File.Exists(targetDirName + @"\" + targetFileName.Replace(extension, " (" + num.ToString() + ")" + extension)))
                         {
-                            RealTargetPath = destDirName + @"\" + srcFileName.Replace(extension, " (" + num.ToString() + ")" + extension);
+                            RealTargetPath = targetDirName + @"\" + targetFileName.Replace(extension, " (" + num.ToString() + ")" + extension);
                             log("Will renamed to " + RealTargetPath);
                             break;
                         }
@@ -87,7 +87,7 @@ namespace PhotoMover
                 {
                     try
                     {
-                        File.Delete(destDirName + @"\" + srcFileName);
+                        File.Delete(targetDirName + @"\" + targetFileName);
                         log("Deleted old file in target folder before copy.");
                     }
                     catch (Exception ex)
@@ -274,7 +274,7 @@ namespace PhotoMover
         private bool NameMatch(string name)
         {
             name = name.ToLower();
-            var filters = cfg.RenameFileFilter.ToLower().Split(';');
+            var filters = cfg.RenameFileFilter.ToLower().Split('|');
             return filters.Any(f => {
                 var pattern = new WildcardPattern(f);
                 return pattern.IsMatch(name);

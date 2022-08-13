@@ -38,7 +38,7 @@ namespace PhotoMover
                 instance.ShowList = true;
                 instance.Extractors = new Dictionary<string, List<DateExtractorProxy>>();
                 instance.SourceFileFilter = "*.*";
-                instance.RenameFileFilter = "A*.jpg;M*.mov";
+                instance.RenameFileFilter = "A*.jpg|M*.mov";
                 instance.RenameFileTemplate = "yyyymmdd-hhwwss";
             }
             return instance;
@@ -71,7 +71,7 @@ namespace PhotoMover
         public string SourceBasePath { get; set; }
 
         [DataMember(Order = 11)]
-        public string SourceFileFilter { get; set; } = "*.jpg;*.cr3";
+        public string SourceFileFilter { get; set; } = "*.jpg|*.cr3";
 
         [DataMember(Order = 12)]
         public string TargetBasePath { get; set; }
@@ -81,7 +81,7 @@ namespace PhotoMover
         [DataMember(Order = 21)]
         public bool RenameFiles { get; set; } = false;
         [DataMember(Order = 22)]
-        public string RenameFileFilter { get; set; } = "C*.jpg;*.avi";
+        public string RenameFileFilter { get; set; } = "C*.jpg|*.avi";
         [DataMember(Order = 23)]
         public string RenameFileTemplate { get; set; }
 

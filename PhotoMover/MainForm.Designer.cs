@@ -91,6 +91,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btPreview = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -101,11 +102,11 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(871, 330);
+            this.btnOk.Location = new System.Drawing.Point(738, 330);
             this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(120, 72);
-            this.btnOk.TabIndex = 9;
+            this.btnOk.TabIndex = 13;
             this.btnOk.Text = "开始";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -140,8 +141,8 @@
             this.cbTreeType.Location = new System.Drawing.Point(130, 161);
             this.cbTreeType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbTreeType.Name = "cbTreeType";
-            this.cbTreeType.Size = new System.Drawing.Size(450, 34);
-            this.cbTreeType.TabIndex = 6;
+            this.cbTreeType.Size = new System.Drawing.Size(317, 34);
+            this.cbTreeType.TabIndex = 7;
             this.cbTreeType.Text = "yyyy\\yyyy-mm\\yyyymmdd";
             // 
             // btnD
@@ -150,7 +151,7 @@
             this.btnD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnD.Name = "btnD";
             this.btnD.Size = new System.Drawing.Size(99, 34);
-            this.btnD.TabIndex = 4;
+            this.btnD.TabIndex = 5;
             this.btnD.Text = "目标目录";
             this.btnD.UseVisualStyleBackColor = true;
             this.btnD.Click += new System.EventHandler(this.btnD_Click);
@@ -182,15 +183,15 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(560, 71);
-            this.groupBox1.TabIndex = 7;
+            this.groupBox1.Size = new System.Drawing.Size(427, 71);
+            this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "如果目标文件已存在";
             // 
             // rbtRename
             // 
             this.rbtRename.AutoSize = true;
-            this.rbtRename.Location = new System.Drawing.Point(394, 29);
+            this.rbtRename.Location = new System.Drawing.Point(341, 31);
             this.rbtRename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtRename.Name = "rbtRename";
             this.rbtRename.Size = new System.Drawing.Size(66, 24);
@@ -201,7 +202,7 @@
             // rbtReplace
             // 
             this.rbtReplace.AutoSize = true;
-            this.rbtReplace.Location = new System.Drawing.Point(160, 29);
+            this.rbtReplace.Location = new System.Drawing.Point(128, 31);
             this.rbtReplace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtReplace.Name = "rbtReplace";
             this.rbtReplace.Size = new System.Drawing.Size(66, 24);
@@ -213,7 +214,7 @@
             // 
             this.rbtSkip.AutoSize = true;
             this.rbtSkip.Checked = true;
-            this.rbtSkip.Location = new System.Drawing.Point(286, 29);
+            this.rbtSkip.Location = new System.Drawing.Point(232, 31);
             this.rbtSkip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtSkip.Name = "rbtSkip";
             this.rbtSkip.Size = new System.Drawing.Size(66, 24);
@@ -232,8 +233,8 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(489, 72);
-            this.groupBox2.TabIndex = 8;
+            this.groupBox2.Size = new System.Drawing.Size(356, 72);
+            this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "复制方式";
             // 
@@ -241,7 +242,7 @@
             // 
             this.rbtCopy.AutoSize = true;
             this.rbtCopy.Checked = true;
-            this.rbtCopy.Location = new System.Drawing.Point(160, 34);
+            this.rbtCopy.Location = new System.Drawing.Point(128, 33);
             this.rbtCopy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtCopy.Name = "rbtCopy";
             this.rbtCopy.Size = new System.Drawing.Size(66, 24);
@@ -253,7 +254,7 @@
             // rbtMove
             // 
             this.rbtMove.AutoSize = true;
-            this.rbtMove.Location = new System.Drawing.Point(286, 34);
+            this.rbtMove.Location = new System.Drawing.Point(232, 33);
             this.rbtMove.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtMove.Name = "rbtMove";
             this.rbtMove.Size = new System.Drawing.Size(66, 24);
@@ -264,11 +265,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(33, 169);
+            this.label1.Location = new System.Drawing.Point(41, 172);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 20);
-            this.label1.TabIndex = 12;
+            this.label1.TabIndex = 99;
             this.label1.Text = "目录结构";
             // 
             // statusStrip1
@@ -284,12 +285,12 @@
             this.tssRenamed,
             this.toolStripStatusLabel5,
             this.tssError});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1082);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1029);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1011, 32);
+            this.statusStrip1.Size = new System.Drawing.Size(878, 32);
             this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 11;
+            this.statusStrip1.TabIndex = 16;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // tssTotal
@@ -358,7 +359,7 @@
             this.cbSrc.Location = new System.Drawing.Point(130, 17);
             this.cbSrc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbSrc.Name = "cbSrc";
-            this.cbSrc.Size = new System.Drawing.Size(870, 28);
+            this.cbSrc.Size = new System.Drawing.Size(737, 28);
             this.cbSrc.TabIndex = 1;
             this.cbSrc.Text = "F:\\DCIM\\";
             // 
@@ -366,7 +367,7 @@
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnStop.Location = new System.Drawing.Point(871, 330);
+            this.btnStop.Location = new System.Drawing.Point(738, 330);
             this.btnStop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(120, 72);
@@ -383,8 +384,8 @@
             this.panel1.Location = new System.Drawing.Point(18, 406);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(982, 15);
-            this.panel1.TabIndex = 16;
+            this.panel1.Size = new System.Drawing.Size(849, 15);
+            this.panel1.TabIndex = 15;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
             // 
             // listView1
@@ -408,8 +409,8 @@
             this.listView1.Location = new System.Drawing.Point(18, 432);
             this.listView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(985, 641);
-            this.listView1.TabIndex = 10;
+            this.listView1.Size = new System.Drawing.Size(852, 588);
+            this.listView1.TabIndex = 14;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
@@ -490,11 +491,11 @@
             this.cbDest.FormattingEnabled = true;
             this.cbDest.Items.AddRange(new object[] {
             "D:\\Photos\\"});
-            this.cbDest.Location = new System.Drawing.Point(130, 109);
+            this.cbDest.Location = new System.Drawing.Point(130, 111);
             this.cbDest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbDest.Name = "cbDest";
-            this.cbDest.Size = new System.Drawing.Size(870, 28);
-            this.cbDest.TabIndex = 5;
+            this.cbDest.Size = new System.Drawing.Size(737, 28);
+            this.cbDest.TabIndex = 6;
             this.cbDest.Text = "D:\\Photos\\";
             // 
             // chkEmpty
@@ -511,7 +512,7 @@
             // btPauseResume
             // 
             this.btPauseResume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPauseResume.Location = new System.Drawing.Point(735, 329);
+            this.btPauseResume.Location = new System.Drawing.Point(602, 329);
             this.btPauseResume.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btPauseResume.Name = "btPauseResume";
             this.btPauseResume.Size = new System.Drawing.Size(120, 72);
@@ -525,10 +526,10 @@
             // 
             this.btMgr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btMgr.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btMgr.Location = new System.Drawing.Point(516, 338);
+            this.btMgr.Location = new System.Drawing.Point(383, 338);
             this.btMgr.Name = "btMgr";
             this.btMgr.Size = new System.Drawing.Size(64, 58);
-            this.btMgr.TabIndex = 18;
+            this.btMgr.TabIndex = 11;
             this.btMgr.Text = "⚙";
             this.btMgr.UseVisualStyleBackColor = true;
             this.btMgr.Click += new System.EventHandler(this.btMgr_Click);
@@ -546,10 +547,10 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.cbRenameFiles);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(602, 160);
+            this.panel2.Location = new System.Drawing.Point(469, 160);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(398, 156);
-            this.panel2.TabIndex = 23;
+            this.panel2.TabIndex = 10;
             // 
             // txtRenameTemplate
             // 
@@ -557,7 +558,7 @@
             this.txtRenameTemplate.Location = new System.Drawing.Point(132, 102);
             this.txtRenameTemplate.Name = "txtRenameTemplate";
             this.txtRenameTemplate.Size = new System.Drawing.Size(244, 26);
-            this.txtRenameTemplate.TabIndex = 28;
+            this.txtRenameTemplate.TabIndex = 2;
             this.txtRenameTemplate.Text = "N-yyyy-mm-dd-hh-ww-ss#";
             // 
             // txtRenameFilter
@@ -566,8 +567,8 @@
             this.txtRenameFilter.Location = new System.Drawing.Point(132, 52);
             this.txtRenameFilter.Name = "txtRenameFilter";
             this.txtRenameFilter.Size = new System.Drawing.Size(244, 26);
-            this.txtRenameFilter.TabIndex = 27;
-            this.txtRenameFilter.Text = "C*.jpg;A*.mov";
+            this.txtRenameFilter.TabIndex = 1;
+            this.txtRenameFilter.Text = "C*.jpg|A*.mov";
             // 
             // label3
             // 
@@ -576,7 +577,7 @@
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 20);
-            this.label3.TabIndex = 27;
+            this.label3.TabIndex = 99;
             this.label3.Text = "改名模板";
             // 
             // cbRenameFiles
@@ -585,7 +586,7 @@
             this.cbRenameFiles.Location = new System.Drawing.Point(13, 7);
             this.cbRenameFiles.Name = "cbRenameFiles";
             this.cbRenameFiles.Size = new System.Drawing.Size(115, 24);
-            this.cbRenameFiles.TabIndex = 25;
+            this.cbRenameFiles.TabIndex = 0;
             this.cbRenameFiles.Text = "文件重命名";
             this.cbRenameFiles.UseVisualStyleBackColor = true;
             this.cbRenameFiles.CheckedChanged += new System.EventHandler(this.cbRenameFiles_CheckedChanged);
@@ -597,37 +598,37 @@
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 20);
-            this.label2.TabIndex = 26;
+            this.label2.TabIndex = 99;
             this.label2.Text = "文件名筛选";
             // 
             // txtSrcFilter
             // 
-            this.txtSrcFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSrcFilter.Location = new System.Drawing.Point(860, 54);
+            this.txtSrcFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSrcFilter.Location = new System.Drawing.Point(775, 54);
             this.txtSrcFilter.Name = "txtSrcFilter";
-            this.txtSrcFilter.Size = new System.Drawing.Size(139, 26);
-            this.txtSrcFilter.TabIndex = 24;
-            this.txtSrcFilter.Text = "*.jpg;*.mov";
+            this.txtSrcFilter.Size = new System.Drawing.Size(91, 26);
+            this.txtSrcFilter.TabIndex = 4;
+            this.txtSrcFilter.Text = "*.jpg|*.mov";
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(774, 57);
+            this.label4.Location = new System.Drawing.Point(692, 57);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 20);
-            this.label4.TabIndex = 25;
+            this.label4.TabIndex = 99;
             this.label4.Text = "文件类型";
             // 
             // btPreview
             // 
             this.btPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPreview.Location = new System.Drawing.Point(602, 329);
+            this.btPreview.Location = new System.Drawing.Point(469, 329);
             this.btPreview.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btPreview.Name = "btPreview";
             this.btPreview.Size = new System.Drawing.Size(120, 72);
-            this.btPreview.TabIndex = 26;
+            this.btPreview.TabIndex = 12;
             this.btPreview.Text = " 预览";
             this.btPreview.UseVisualStyleBackColor = true;
             this.btPreview.Click += new System.EventHandler(this.btPreview_Click);
@@ -639,14 +640,26 @@
             this.label5.Location = new System.Drawing.Point(126, 204);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(254, 17);
-            this.label5.TabIndex = 27;
+            this.label5.TabIndex = 1;
             this.label5.Text = "yyyy: 年 mm:月 dd:日 hh:时 ww:分 ss:秒";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(749, 85);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(111, 17);
+            this.label6.TabIndex = 100;
+            this.label6.Text = "e.g. a*.jpg|C*.avi";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1011, 1114);
+            this.ClientSize = new System.Drawing.Size(878, 1061);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btPreview);
             this.Controls.Add(this.label4);
@@ -672,6 +685,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(900, 510);
             this.Name = "MainForm";
             this.Text = "Photo Mover";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -746,6 +760,7 @@
         private System.Windows.Forms.TextBox txtRenameTemplate;
         private System.Windows.Forms.TextBox txtRenameFilter;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
 

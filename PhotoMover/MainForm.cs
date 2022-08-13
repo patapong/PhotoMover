@@ -175,6 +175,7 @@ namespace PhotoMover
             else
             {
                 Config cfg = Program.AppConfig;
+                cfg.SourceFileFilter = txtSrcFilter.Text.Trim();
                 cfg.SourceBasePath = cbSrc.Text;
                 cfg.TargetBasePath = cbDest.Text;
                 cfg.DeleteEmptySrcFolder = chkEmpty.Checked;
@@ -265,10 +266,13 @@ namespace PhotoMover
                     lvi.SubItems.Add(job.StatusLog);
                 }
 
-                //scroll to end
-                int visibleItems = listView1.ClientSize.Height / listView1.Items[0].Bounds.Height;
-                if (visibleItems > 1)
-                    listView1.TopItem = listView1.Items[Math.Max(listView1.Items.Count - visibleItems + 1, 0)];
+                if (Program.AppConfig.ShowList)
+                {
+                    //scroll to end
+                    int visibleItems = listView1.ClientSize.Height / listView1.Items[0].Bounds.Height;
+                    if (visibleItems > 1)
+                        listView1.TopItem = listView1.Items[Math.Max(listView1.Items.Count - visibleItems + 1, 0)];
+                }
             }
         }
 
