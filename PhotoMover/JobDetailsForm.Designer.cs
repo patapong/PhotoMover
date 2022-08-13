@@ -80,7 +80,7 @@
             this.txtStatus.Location = new System.Drawing.Point(145, 142);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
-            this.txtStatus.Size = new System.Drawing.Size(148, 26);
+            this.txtStatus.Size = new System.Drawing.Size(185, 26);
             this.txtStatus.TabIndex = 3;
             // 
             // txtLogs

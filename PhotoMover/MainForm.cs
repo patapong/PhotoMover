@@ -49,12 +49,12 @@ namespace PhotoMover
             string dest = cfg.TargetBasePath;
             if (cfg.Recursive)
             {
-                strArray = getFiles(src, "*.*", SearchOption.AllDirectories);
+                strArray = getFiles(src, cfg.SourceFileFilter, SearchOption.AllDirectories);
                 //strArray = getFiles(src, "*.jpg|*.mov|*.avi", SearchOption.AllDirectories);
             }
             else
             {
-                strArray = getFiles(src, "*.*", SearchOption.TopDirectoryOnly);
+                strArray = getFiles(src, cfg.SourceFileFilter, SearchOption.TopDirectoryOnly);
             }
             _total = strArray.Length;
             UpdateStatusBar(tssTotal, Resources.str_total + _total.ToString());
@@ -69,7 +69,11 @@ namespace PhotoMover
                     e.Cancel = true;
                     return;
                 }
-                job.Process();
+                if (cfg.isPreviewOnly)
+                    job.RenamePreview();
+                else
+                    job.Process();
+
                 UpdateState(job);
                 switch (job.Status)
                 {
@@ -118,6 +122,31 @@ namespace PhotoMover
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            Program.AppConfig.isPreviewOnly = false;
+            trigger_bgw();
+        }
+        private void btPreview_Click(object sender, EventArgs e)
+        {
+            Program.AppConfig.isPreviewOnly = true;
+            trigger_bgw();
+        }
+        private void initStatus()
+        {
+            _total = 0;
+            tssTotal.Text = Resources.str_total + _total.ToString();
+            _current = 0;
+            tssCurrent.Text = Resources.str_current + _current.ToString();
+            _skipped = 0;
+            tssSkipped.Text = Resources.str_skip + _skipped.ToString();
+            _renamed = 0;
+            tssRenamed.Text = Resources.str_rename + _renamed.ToString();
+            _error = 0;
+            tssError.Text = Resources.str_error + _error.ToString();
+            ResetState();
+        }
+
+        private void trigger_bgw()
+        {
             if (!cbSrc.Text.EndsWith(@"\"))
             {
                 cbSrc.Text = cbSrc.Text + @"\";
@@ -152,31 +181,19 @@ namespace PhotoMover
                 cfg.Recursive = chkSub.Checked;
                 cfg.FolderStructure = cbTreeType.Text;
                 cfg.DeleteSourceFile = rbtMove.Checked;
+                cfg.RenameFiles = cbRenameFiles.Checked;
+                cfg.RenameFileFilter = txtRenameFilter.Text;
+                cfg.RenameFileTemplate = txtRenameTemplate.Text;
                 cfg.TargetRule = rbtSkip.Checked ? RuleForTargetExists.skip : rbtReplace.Checked ? RuleForTargetExists.overwrite : RuleForTargetExists.rename;
                 jobs = new List<JobUnit>();
                 initStatus();
                 //object[] argument = new object[] { cbSrc.Text, cbDest.Text, chkSub.Checked, cbTreeType.Text };
                 this.bgw.RunWorkerAsync(cfg);
                 btnOk.Enabled = false;
+                btPreview.Enabled = false;
                 btnStop.Visible = true;
             }
         }
-
-        private void initStatus()
-        {
-            _total = 0;
-            tssTotal.Text = Resources.str_total + _total.ToString();
-            _current = 0;
-            tssCurrent.Text = Resources.str_current + _current.ToString();
-            _skipped = 0;
-            tssSkipped.Text = Resources.str_skip + _skipped.ToString();
-            _renamed = 0;
-            tssRenamed.Text = Resources.str_rename + _renamed.ToString();
-            _error = 0;
-            tssError.Text = Resources.str_error + _error.ToString();
-            ResetState();
-        }
-
         private void bgw_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -199,6 +216,7 @@ namespace PhotoMover
                 msgShower(Resources.msg_finished);
             }
             btnOk.Enabled = true;
+            btPreview.Enabled = true;
             btnStop.Visible = false;
         }
 
@@ -293,6 +311,12 @@ namespace PhotoMover
         private void Form1_Load(object sender, EventArgs e)
         {
             var cfg = Program.AppConfig;
+            
+            if (string.IsNullOrEmpty(cfg.SourceFileFilter))
+            {
+                cfg.SourceFileFilter = "*.*";
+            }
+            txtSrcFilter.Text = cfg.SourceFileFilter;
             setCombo(cfg.HistorySourcePathes, cbSrc);
             chkSub.Checked = cfg.Recursive;
             chkEmpty.Checked = cfg.DeleteEmptySrcFolder;
@@ -310,6 +334,12 @@ namespace PhotoMover
                 rbtMove.Checked = true;
             else
                 rbtCopy.Checked = true;
+
+            cbRenameFiles.Checked = cfg.RenameFiles;
+            txtRenameFilter.Text = cfg.RenameFileFilter;
+            txtRenameTemplate.Text = cfg.RenameFileTemplate;
+            txtRenameFilter.Enabled = cfg.RenameFiles;
+            txtRenameTemplate.Enabled = cfg.RenameFiles;
 
             if (!Program.AppConfig.ShowList)
             {
@@ -343,14 +373,20 @@ namespace PhotoMover
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             var cfg = Program.AppConfig;
+            cfg.SourceFileFilter = txtSrcFilter.Text;
+            cfg.RenameFiles = cbRenameFiles.Checked;
+            cfg.RenameFileFilter = txtRenameFilter.Text;
+            cfg.RenameFileTemplate = txtRenameTemplate.Text;
             cfg.HistorySourcePathes = saveCombo(cbSrc);
             cfg.HistoryTargetPathes = saveCombo(cbDest);
             cfg.HistoryFolderStructures = saveCombo(cbTreeType);
             cfg.Recursive = chkSub.Checked;
             cfg.DeleteEmptySrcFolder = chkEmpty.Checked;
+            
             if (rbtSkip.Checked) cfg.TargetRule = RuleForTargetExists.skip;
             else if (rbtReplace.Checked) cfg.TargetRule = RuleForTargetExists.overwrite;
             else cfg.TargetRule = RuleForTargetExists.rename;
+            
             if (rbtCopy.Checked) cfg.DeleteSourceFile = false;
             else cfg.DeleteSourceFile = true;
             cfg.SaveConfig(Program.cfgPath);
@@ -382,10 +418,6 @@ namespace PhotoMover
                                                               listView1.Sorting);
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
         private void btPauseResume_Click(object sender, EventArgs e)
         {
         }
@@ -410,6 +442,11 @@ namespace PhotoMover
             ((JobUnit)listView1.SelectedItems[0].Tag).Retry();
         }
 
+        private void cbRenameFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            txtRenameFilter.Enabled = cbRenameFiles.Checked;
+            txtRenameTemplate.Enabled = cbRenameFiles.Checked;
+        }
 
         private void goDest_Click(object sender, EventArgs e)
         {

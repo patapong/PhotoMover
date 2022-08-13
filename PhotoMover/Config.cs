@@ -32,11 +32,14 @@ namespace PhotoMover
             {
                 instance = new Config();
                 instance.Recursive = true;
-                instance.DeleteEmptySrcFolder = true;
+                instance.DeleteEmptySrcFolder = false;
                 instance.TargetRule = RuleForTargetExists.skip;
                 instance.DeleteSourceFile = false;
                 instance.ShowList = true;
                 instance.Extractors = new Dictionary<string, List<DateExtractorProxy>>();
+                instance.SourceFileFilter = "*.*";
+                instance.RenameFileFilter = "A*.jpg;M*.mov";
+                instance.RenameFileTemplate = "yyyymmdd-hhwwss";
             }
             return instance;
         }
@@ -61,31 +64,44 @@ namespace PhotoMover
             //jsz.Serialize(tw, instance);
             //tw.Close();
         }
-        
-        [DataMember(Order = 1)]
+
+        public bool isPreviewOnly { get; set; }
+
+        [DataMember(Order = 10)]
         public string SourceBasePath { get; set; }
-        [DataMember(Order = 2)]
+
+        [DataMember(Order = 11)]
+        public string SourceFileFilter { get; set; } = "*.jpg;*.cr3";
+
+        [DataMember(Order = 12)]
         public string TargetBasePath { get; set; }
-        [DataMember(Order = 3)]
+        [DataMember(Order = 20)]
         public string FolderStructure { get; set; }
 
-        [DataMember(Order = 4)]
+        [DataMember(Order = 21)]
+        public bool RenameFiles { get; set; } = false;
+        [DataMember(Order = 22)]
+        public string RenameFileFilter { get; set; } = "C*.jpg;*.avi";
+        [DataMember(Order = 23)]
+        public string RenameFileTemplate { get; set; }
+
+        [DataMember(Order = 30)]
         public bool DeleteEmptySrcFolder { get; set; }
-        [DataMember(Order = 5)]
+        [DataMember(Order = 31)]
         public RuleForTargetExists TargetRule { get; set; }
-        [DataMember(Order = 6)]
+        [DataMember(Order = 32)]
         public bool Recursive { get; set; }
 
         //if true, means Move. if false means copy
-        [DataMember(Order = 7)]
+        [DataMember(Order = 33)]
         public bool DeleteSourceFile { get; set; }
-        [DataMember(Order = 8)]
+        [DataMember(Order = 40)]
         public bool ShowList { get; set; }
-        [DataMember(Order = 9)]
+        [DataMember(Order = 50)]
         public List<string> HistorySourcePathes { get; set; }
-        [DataMember(Order = 10)]
+        [DataMember(Order = 51)]
         public List<string> HistoryTargetPathes { get; set; }
-        [DataMember(Order = 11)]
+        [DataMember(Order = 52)]
         public List<string> HistoryFolderStructures { get; set; }
 
         [DataMember(Order = 99)]

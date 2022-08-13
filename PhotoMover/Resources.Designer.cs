@@ -61,7 +61,7 @@ namespace PhotoMover {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 指定的目标文件夹不存在！.
+        ///   Looks up a localized string similar to 指定的目标目录不存在！.
         /// </summary>
         internal static string msg_destNotExist {
             get {
@@ -97,7 +97,7 @@ namespace PhotoMover {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 目标文件夹不能与源文件夹重复！.
+        ///   Looks up a localized string similar to 目标目录不能与源目录重复！.
         /// </summary>
         internal static string msg_srcAndDestShouldNotBeSame {
             get {
@@ -106,7 +106,7 @@ namespace PhotoMover {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 指定的源文件夹不存在！.
+        ///   Looks up a localized string similar to 指定的源目录不存在！.
         /// </summary>
         internal static string msg_srcNotExist {
             get {

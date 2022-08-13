@@ -81,19 +81,30 @@
             this.btPauseResume = new System.Windows.Forms.Button();
             this.btMgr = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.txtRenameTemplate = new System.Windows.Forms.TextBox();
+            this.txtRenameFilter = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbRenameFiles = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtSrcFilter = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btPreview = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gridMenu.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(860, 330);
+            this.btnOk.Location = new System.Drawing.Point(871, 330);
             this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(132, 72);
+            this.btnOk.Size = new System.Drawing.Size(120, 72);
             this.btnOk.TabIndex = 9;
             this.btnOk.Text = "开始";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -126,10 +137,10 @@
             "yy\\mm\\dd",
             "yy\\mmdd",
             "yyyy\\yyyy-mm\\yyyymmdd"});
-            this.cbTreeType.Location = new System.Drawing.Point(130, 175);
+            this.cbTreeType.Location = new System.Drawing.Point(130, 161);
             this.cbTreeType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbTreeType.Name = "cbTreeType";
-            this.cbTreeType.Size = new System.Drawing.Size(865, 34);
+            this.cbTreeType.Size = new System.Drawing.Size(450, 34);
             this.cbTreeType.TabIndex = 6;
             this.cbTreeType.Text = "yyyy\\yyyy-mm\\yyyymmdd";
             // 
@@ -167,11 +178,11 @@
             this.groupBox1.Controls.Add(this.rbtRename);
             this.groupBox1.Controls.Add(this.rbtReplace);
             this.groupBox1.Controls.Add(this.rbtSkip);
-            this.groupBox1.Location = new System.Drawing.Point(20, 249);
+            this.groupBox1.Location = new System.Drawing.Point(20, 245);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(982, 71);
+            this.groupBox1.Size = new System.Drawing.Size(560, 71);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "如果目标文件已存在";
@@ -179,7 +190,7 @@
             // rbtRename
             // 
             this.rbtRename.AutoSize = true;
-            this.rbtRename.Location = new System.Drawing.Point(482, 32);
+            this.rbtRename.Location = new System.Drawing.Point(394, 29);
             this.rbtRename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtRename.Name = "rbtRename";
             this.rbtRename.Size = new System.Drawing.Size(66, 24);
@@ -190,7 +201,7 @@
             // rbtReplace
             // 
             this.rbtReplace.AutoSize = true;
-            this.rbtReplace.Location = new System.Drawing.Point(248, 32);
+            this.rbtReplace.Location = new System.Drawing.Point(160, 29);
             this.rbtReplace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtReplace.Name = "rbtReplace";
             this.rbtReplace.Size = new System.Drawing.Size(66, 24);
@@ -202,7 +213,7 @@
             // 
             this.rbtSkip.AutoSize = true;
             this.rbtSkip.Checked = true;
-            this.rbtSkip.Location = new System.Drawing.Point(374, 32);
+            this.rbtSkip.Location = new System.Drawing.Point(286, 29);
             this.rbtSkip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtSkip.Name = "rbtSkip";
             this.rbtSkip.Size = new System.Drawing.Size(66, 24);
@@ -230,7 +241,7 @@
             // 
             this.rbtCopy.AutoSize = true;
             this.rbtCopy.Checked = true;
-            this.rbtCopy.Location = new System.Drawing.Point(111, 34);
+            this.rbtCopy.Location = new System.Drawing.Point(160, 34);
             this.rbtCopy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtCopy.Name = "rbtCopy";
             this.rbtCopy.Size = new System.Drawing.Size(66, 24);
@@ -242,7 +253,7 @@
             // rbtMove
             // 
             this.rbtMove.AutoSize = true;
-            this.rbtMove.Location = new System.Drawing.Point(248, 34);
+            this.rbtMove.Location = new System.Drawing.Point(286, 34);
             this.rbtMove.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbtMove.Name = "rbtMove";
             this.rbtMove.Size = new System.Drawing.Size(66, 24);
@@ -253,7 +264,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 185);
+            this.label1.Location = new System.Drawing.Point(33, 169);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 20);
@@ -344,10 +355,10 @@
             "E:\\DCIM",
             "F:\\DCIM",
             "G:\\DCIM"});
-            this.cbSrc.Location = new System.Drawing.Point(128, 17);
+            this.cbSrc.Location = new System.Drawing.Point(130, 17);
             this.cbSrc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbSrc.Name = "cbSrc";
-            this.cbSrc.Size = new System.Drawing.Size(872, 28);
+            this.cbSrc.Size = new System.Drawing.Size(870, 28);
             this.cbSrc.TabIndex = 1;
             this.cbSrc.Text = "F:\\DCIM\\";
             // 
@@ -355,10 +366,10 @@
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnStop.Location = new System.Drawing.Point(860, 330);
+            this.btnStop.Location = new System.Drawing.Point(871, 330);
             this.btnStop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(129, 72);
+            this.btnStop.Size = new System.Drawing.Size(120, 72);
             this.btnStop.TabIndex = 9;
             this.btnStop.Text = "停止";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -402,29 +413,28 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseClick);
             // 
             // Source
             // 
             this.Source.Text = "Source";
-            this.Source.Width = 248;
+            this.Source.Width = 300;
             // 
             // Dest
             // 
             this.Dest.Text = "Dest";
-            this.Dest.Width = 115;
+            this.Dest.Width = 300;
             // 
             // Status
             // 
             this.Status.Text = "Status";
-            this.Status.Width = 123;
+            this.Status.Width = 120;
             // 
             // Logs
             // 
             this.Logs.Text = "Logs";
-            this.Logs.Width = 450;
+            this.Logs.Width = 250;
             // 
             // gridMenu
             // 
@@ -483,9 +493,9 @@
             this.cbDest.Location = new System.Drawing.Point(130, 109);
             this.cbDest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbDest.Name = "cbDest";
-            this.cbDest.Size = new System.Drawing.Size(872, 28);
+            this.cbDest.Size = new System.Drawing.Size(870, 28);
             this.cbDest.TabIndex = 5;
-            this.cbDest.Text = "D:\\Photos";
+            this.cbDest.Text = "D:\\Photos\\";
             // 
             // chkEmpty
             // 
@@ -501,10 +511,10 @@
             // btPauseResume
             // 
             this.btPauseResume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPauseResume.Location = new System.Drawing.Point(715, 329);
+            this.btPauseResume.Location = new System.Drawing.Point(735, 329);
             this.btPauseResume.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btPauseResume.Name = "btPauseResume";
-            this.btPauseResume.Size = new System.Drawing.Size(132, 72);
+            this.btPauseResume.Size = new System.Drawing.Size(120, 72);
             this.btPauseResume.TabIndex = 17;
             this.btPauseResume.Text = "暂停";
             this.btPauseResume.UseVisualStyleBackColor = true;
@@ -527,11 +537,121 @@
             // 
             this.saveFileDialog1.Filter = "CSV files|*.csv|All files|*.*";
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.txtRenameTemplate);
+            this.panel2.Controls.Add(this.txtRenameFilter);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.cbRenameFiles);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Location = new System.Drawing.Point(602, 160);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(398, 156);
+            this.panel2.TabIndex = 23;
+            // 
+            // txtRenameTemplate
+            // 
+            this.txtRenameTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRenameTemplate.Location = new System.Drawing.Point(132, 102);
+            this.txtRenameTemplate.Name = "txtRenameTemplate";
+            this.txtRenameTemplate.Size = new System.Drawing.Size(244, 26);
+            this.txtRenameTemplate.TabIndex = 28;
+            this.txtRenameTemplate.Text = "N-yyyy-mm-dd-hh-ww-ss#";
+            // 
+            // txtRenameFilter
+            // 
+            this.txtRenameFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRenameFilter.Location = new System.Drawing.Point(132, 52);
+            this.txtRenameFilter.Name = "txtRenameFilter";
+            this.txtRenameFilter.Size = new System.Drawing.Size(244, 26);
+            this.txtRenameFilter.TabIndex = 27;
+            this.txtRenameFilter.Text = "C*.jpg;A*.mov";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(49, 105);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 20);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "改名模板";
+            // 
+            // cbRenameFiles
+            // 
+            this.cbRenameFiles.AutoSize = true;
+            this.cbRenameFiles.Location = new System.Drawing.Point(13, 7);
+            this.cbRenameFiles.Name = "cbRenameFiles";
+            this.cbRenameFiles.Size = new System.Drawing.Size(115, 24);
+            this.cbRenameFiles.TabIndex = 25;
+            this.cbRenameFiles.Text = "文件重命名";
+            this.cbRenameFiles.UseVisualStyleBackColor = true;
+            this.cbRenameFiles.CheckedChanged += new System.EventHandler(this.cbRenameFiles_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(33, 55);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 20);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "文件名筛选";
+            // 
+            // txtSrcFilter
+            // 
+            this.txtSrcFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSrcFilter.Location = new System.Drawing.Point(860, 54);
+            this.txtSrcFilter.Name = "txtSrcFilter";
+            this.txtSrcFilter.Size = new System.Drawing.Size(139, 26);
+            this.txtSrcFilter.TabIndex = 24;
+            this.txtSrcFilter.Text = "*.jpg;*.mov";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(774, 57);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 20);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "文件类型";
+            // 
+            // btPreview
+            // 
+            this.btPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPreview.Location = new System.Drawing.Point(602, 329);
+            this.btPreview.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btPreview.Name = "btPreview";
+            this.btPreview.Size = new System.Drawing.Size(120, 72);
+            this.btPreview.TabIndex = 26;
+            this.btPreview.Text = " 预览";
+            this.btPreview.UseVisualStyleBackColor = true;
+            this.btPreview.Click += new System.EventHandler(this.btPreview_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(126, 204);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(254, 17);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "yyyy: 年 mm:月 dd:日 hh:时 ww:分 ss:秒";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1011, 1114);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.btPreview);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtSrcFilter);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.btMgr);
             this.Controls.Add(this.btPauseResume);
             this.Controls.Add(this.btnOk);
@@ -563,6 +683,8 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.gridMenu.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -614,6 +736,16 @@
         private System.Windows.Forms.ColumnHeader Logs;
         private System.Windows.Forms.ToolStripMenuItem retryToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox cbRenameFiles;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtSrcFilter;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btPreview;
+        private System.Windows.Forms.TextBox txtRenameTemplate;
+        private System.Windows.Forms.TextBox txtRenameFilter;
+        private System.Windows.Forms.Label label5;
     }
 }
 

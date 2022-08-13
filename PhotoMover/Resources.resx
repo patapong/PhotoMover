@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="msg_destNotExist" xml:space="preserve">
-    <value>指定的目标文件夹不存在！</value>
+    <value>指定的目标目录不存在！</value>
   </data>
   <data name="msg_finished" xml:space="preserve">
     <value>完成了！</value>
@@ -130,10 +130,10 @@
     <value>处理中止</value>
   </data>
   <data name="msg_srcAndDestShouldNotBeSame" xml:space="preserve">
-    <value>目标文件夹不能与源文件夹重复！</value>
+    <value>目标目录不能与源目录重复！</value>
   </data>
   <data name="msg_srcNotExist" xml:space="preserve">
-    <value>指定的源文件夹不存在！</value>
+    <value>指定的源目录不存在！</value>
   </data>
   <data name="str_current" xml:space="preserve">
     <value>当前:</value>

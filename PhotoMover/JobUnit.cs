@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Management.Automation;
 
 namespace PhotoMover
 {
@@ -16,53 +17,44 @@ namespace PhotoMover
         public JobStatus Status { get; private set; }
         public string StatusLog { get; private set; }
 
-        private string fileName;
+        private string srcFileName;
         private string srcFolderName;
+        private string targetFileName;
         private string extension;
+        private bool isTargetPathNameCalculated;
         private Config cfg;
         public JobUnit(string path)
         {
             cfg = Config.GetConfig();
             SourcePath = path;
-            fileName = Path.GetFileName(path);
+            srcFileName = Path.GetFileName(path);
             srcFolderName = Path.GetDirectoryName(path);
             extension = Path.GetExtension(SourcePath);
             Status = JobStatus.NotProcessed;
             DateProvider = cfg.GetExtractorsForExt(extension).Find(p => p.IsEnabled && p.Instance != null).Instance;
             log("Job created.", false);
         }
-
-        public void Process()
+        
+        public void RenamePreview()
         {
             Status = JobStatus.InProgress;
-            DateTime dt;
-            if (!File.Exists(SourcePath))
-            {
-                Status = JobStatus.Error;
-                log("File '" + SourcePath + "' does not exist!");
+            CalculatePath();
+        }
+        public void Process()
+        {
+            if(!isTargetPathNameCalculated)
+                CalculatePath();
+
+            if (Status == JobStatus.Error)
                 return;
-            }
-            try
-            {
-                dt = DateProvider.GetDate(SourcePath, out string info);
-                log("GetDate additional info: " + info);
-            }
-            catch (Exception ex) {
-                log("!Failed to parse date from source file, will use file last write time. Exception msg: " + ex.Message);
-                dt = DefaultInfoReader.Instance.GetDate(SourcePath, out string info);
-            }
 
-            string[] strArrayDate = new string[] { dt.Year.ToString(), dt.Month.ToString().PadLeft(2, '0'), dt.Day.ToString().PadLeft(2, '0') };
-            //string strYMD = strArrayDate[0] + strArrayDate[1] + strArrayDate[2];
-            string folder4CurFile = cfg.FolderStructure;
-            folder4CurFile = folder4CurFile.Replace("yyyy", strArrayDate[0]);
-            folder4CurFile = folder4CurFile.Replace("mm", strArrayDate[1]);
-            folder4CurFile = folder4CurFile.Replace("dd", strArrayDate[2]);
-            folder4CurFile = folder4CurFile.Replace("yy", strArrayDate[0].Substring(2));
-            string destDirName = createFolder(cfg.TargetBasePath, folder4CurFile);
-
-            CalculatedTargetPath = destDirName + "\\" + fileName;
+            Status = JobStatus.InProgress;
+            
             RealTargetPath = CalculatedTargetPath;
+            string destDirName = Path.GetDirectoryName(CalculatedTargetPath);
+
+            createFolder(cfg.TargetBasePath, destDirName.Substring(cfg.TargetBasePath.Length));
+            
             if (File.Exists(CalculatedTargetPath))
             {
                 if (cfg.TargetRule == RuleForTargetExists.skip)
@@ -76,9 +68,9 @@ namespace PhotoMover
                     int num = 2;
                     while (num < 1000)
                     {
-                        if (!File.Exists(destDirName + @"\" + fileName.Replace(extension, " (" + num.ToString() + ")" + extension)))
+                        if (!File.Exists(destDirName + @"\" + srcFileName.Replace(extension, " (" + num.ToString() + ")" + extension)))
                         {
-                            RealTargetPath = destDirName + @"\" + fileName.Replace(extension, " (" + num.ToString() + ")" + extension);
+                            RealTargetPath = destDirName + @"\" + srcFileName.Replace(extension, " (" + num.ToString() + ")" + extension);
                             log("Will renamed to " + RealTargetPath);
                             break;
                         }
@@ -95,7 +87,7 @@ namespace PhotoMover
                 {
                     try
                     {
-                        File.Delete(destDirName + @"\" + fileName);
+                        File.Delete(destDirName + @"\" + srcFileName);
                         log("Deleted old file in target folder before copy.");
                     }
                     catch (Exception ex)
@@ -236,9 +228,68 @@ namespace PhotoMover
                 return createFolder(newParent, subFolders.Substring(subFolders.IndexOf('\\') + 1));
             }
         }
+        
+        private void CalculatePath()
+        {
+            DateTime dt;
+            if (!File.Exists(SourcePath))
+            {
+                Status = JobStatus.Error;
+                log("File '" + SourcePath + "' does not exist!");
+                return;
+            }
+            try
+            {
+                dt = DateProvider.GetDate(SourcePath, out string info);
+                log("GetDate additional info: " + info);
+            }
+            catch (Exception ex)
+            {
+                log("!Failed to parse date from source file, will use file last write time. Exception msg: " + ex.Message);
+                dt = DefaultInfoReader.Instance.GetDate(SourcePath, out string info);
+            }
+
+            string[] strArrayDate = new string[] { dt.Year.ToString(), dt.Month.ToString().PadLeft(2, '0'), dt.Day.ToString().PadLeft(2, '0'),
+                dt.Hour.ToString().PadLeft(2,'0'), dt.Minute.ToString().PadLeft(2, '0'), dt.Second.ToString().PadLeft(2,'0') };
+            string folder4CurFile = cfg.FolderStructure;
+
+            folder4CurFile = FitDateTimeInString(folder4CurFile, strArrayDate);
+
+            if (cfg.RenameFiles && NameMatch(srcFileName)) 
+            {
+                //ww - minutes
+                targetFileName = FitDateTimeInString(cfg.RenameFileTemplate, strArrayDate) + extension;
+            }
+            else
+            {
+                targetFileName = srcFileName;
+            }
+
+            CalculatedTargetPath = Path.Combine(cfg.TargetBasePath, folder4CurFile, targetFileName);
+            isTargetPathNameCalculated = true;
+            Status = JobStatus.TargetNameGenerated;
+            log("Calculate for target file name finished.");
+        }
+
+        private bool NameMatch(string name)
+        {
+            name = name.ToLower();
+            var filters = cfg.RenameFileFilter.ToLower().Split(';');
+            return filters.Any(f => {
+                var pattern = new WildcardPattern(f);
+                return pattern.IsMatch(name);
+            });
+        }
+
+        private string FitDateTimeInString(string input, string[] strArrayDate)
+        {
+            return input.Replace("yyyy", strArrayDate[0]).Replace("mm", strArrayDate[1]).Replace("dd", strArrayDate[2]).Replace("yy", strArrayDate[0].Substring(2))
+                    .Replace("hh", strArrayDate[3]).Replace("ww", strArrayDate[4]).Replace("ss", strArrayDate[5]);
+        }
+
         private void log(string msg, bool newLine = true)
         {
-            string timestamp = DateTime.Now.ToString("HH:mm:ss.fff "); //"yyyymmdd HH:mm:ss.fff "
+            string timestamp = DateTime.Now.ToString("HH:mm:ss.fff "); //"yyyyMMdd HH:mm:ss.fff "
             if (newLine)
                 StatusLog += "\r\n" + timestamp + msg;
             else
@@ -251,6 +302,7 @@ namespace PhotoMover
     {
         NotProcessed,
         InProgress,
+        TargetNameGenerated,
         Error,
         Copied,
         Moved,
