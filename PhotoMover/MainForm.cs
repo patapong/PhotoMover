@@ -14,6 +14,7 @@ namespace PhotoMover
         public MainForm()
         {
             InitializeComponent();
+            listView1.SetDoubleBuffered(true);
             srcIdx = new Dictionary<string, int>();
             initStatus();
             btnStop.Visible = false;
@@ -523,5 +524,23 @@ namespace PhotoMover
             return result.ToArray();
         }
 
+    }
+    /// <summary>
+    /// Extension methods for List Views
+    /// </summary>
+    public static class ListViewExtensions
+    {
+        /// <summary>
+        /// Sets the double buffered property of a list view to the specified value. code by WraithNath@stackoverflow
+        /// </summary>
+        /// <param name="listView">The List view</param>
+        /// <param name="doubleBuffered">Double Buffered or not</param>
+        public static void SetDoubleBuffered(this System.Windows.Forms.ListView listView, bool doubleBuffered = true)
+        {
+            listView
+                .GetType()
+                .GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(listView, doubleBuffered, null);
+        }
     }
 }
