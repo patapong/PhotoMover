@@ -192,6 +192,7 @@ namespace PhotoMover
                 //object[] argument = new object[] { cbSrc.Text, cbDest.Text, chkSub.Checked, cbTreeType.Text };
                 this.bgw.RunWorkerAsync(cfg);
                 btnOk.Enabled = false;
+                btnOk.Visible = false;
                 btPreview.Enabled = false;
                 btnStop.Visible = true;
             }
@@ -218,6 +219,7 @@ namespace PhotoMover
                 msgShower(Resources.msg_finished);
             }
             btnOk.Enabled = true;
+            btnOk.Visible = true;
             btPreview.Enabled = true;
             btnStop.Visible = false;
         }
@@ -230,7 +232,6 @@ namespace PhotoMover
         private void btnStop_Click(object sender, EventArgs e)
         {
             bgw.CancelAsync();
-            btnStop.Visible = false;
         }
 
         public void ResetState()
