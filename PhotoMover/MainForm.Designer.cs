@@ -34,8 +34,10 @@
             "aaaa",
             "a1"}, -1);
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
-            "bbb",
-            "bbb"}, -1);
+            "E:\\DCIM\\C101\\123.jpg",
+            "NameGenerated",
+            "D:\\MyBackup\\123.jpg",
+            "action log 123"}, -1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnOk = new System.Windows.Forms.Button();
             this.chkSub = new System.Windows.Forms.CheckBox();
@@ -62,13 +64,17 @@
             this.tssRenamed = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssError = new System.Windows.Forms.ToolStripStatusLabel();
+            this.splitA = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssUndo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.splitB = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssRetry = new System.Windows.Forms.ToolStripStatusLabel();
             this.cbSrc = new System.Windows.Forms.ComboBox();
             this.btnStop = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelSwitch = new System.Windows.Forms.Panel();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Source = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Dest = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Dest = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Logs = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gridMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.retryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -285,8 +291,12 @@
             this.toolStripStatusLabel1,
             this.tssRenamed,
             this.toolStripStatusLabel5,
-            this.tssError});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1029);
+            this.tssError,
+            this.splitA,
+            this.tssUndo,
+            this.splitB,
+            this.tssRetry});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 945);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
             this.statusStrip1.Size = new System.Drawing.Size(878, 32);
@@ -348,6 +358,34 @@
             this.tssError.Size = new System.Drawing.Size(69, 25);
             this.tssError.Text = "Error: 0";
             // 
+            // splitA
+            // 
+            this.splitA.Name = "splitA";
+            this.splitA.Size = new System.Drawing.Size(16, 25);
+            this.splitA.Text = "|";
+            this.splitA.Visible = false;
+            // 
+            // tssUndo
+            // 
+            this.tssUndo.Name = "tssUndo";
+            this.tssUndo.Size = new System.Drawing.Size(60, 25);
+            this.tssUndo.Text = "Undo:";
+            this.tssUndo.Visible = false;
+            // 
+            // splitB
+            // 
+            this.splitB.Name = "splitB";
+            this.splitB.Size = new System.Drawing.Size(16, 25);
+            this.splitB.Text = "|";
+            this.splitB.Visible = false;
+            // 
+            // tssRetry
+            // 
+            this.tssRetry.Name = "tssRetry";
+            this.tssRetry.Size = new System.Drawing.Size(56, 25);
+            this.tssRetry.Text = "Retry:";
+            this.tssRetry.Visible = false;
+            // 
             // cbSrc
             // 
             this.cbSrc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -377,17 +415,17 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // panel1
+            // panelSwitch
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelSwitch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.YellowGreen;
-            this.panel1.Location = new System.Drawing.Point(18, 406);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(849, 15);
-            this.panel1.TabIndex = 15;
-            this.panel1.Click += new System.EventHandler(this.panel1_Click);
+            this.panelSwitch.BackColor = System.Drawing.Color.YellowGreen;
+            this.panelSwitch.Location = new System.Drawing.Point(18, 406);
+            this.panelSwitch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelSwitch.Name = "panelSwitch";
+            this.panelSwitch.Size = new System.Drawing.Size(849, 15);
+            this.panelSwitch.TabIndex = 15;
+            this.panelSwitch.Click += new System.EventHandler(this.panel1_Click);
             // 
             // listView1
             // 
@@ -396,8 +434,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Source,
-            this.Dest,
             this.Status,
+            this.Dest,
             this.Logs});
             this.listView1.ContextMenuStrip = this.gridMenu;
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -410,32 +448,33 @@
             this.listView1.Location = new System.Drawing.Point(18, 432);
             this.listView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(852, 588);
+            this.listView1.Size = new System.Drawing.Size(852, 504);
             this.listView1.TabIndex = 14;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseClick);
             // 
             // Source
             // 
-            this.Source.Text = "Source";
+            this.Source.Text = "源目录";
             this.Source.Width = 300;
-            // 
-            // Dest
-            // 
-            this.Dest.Text = "Dest";
-            this.Dest.Width = 300;
             // 
             // Status
             // 
-            this.Status.Text = "Status";
-            this.Status.Width = 120;
+            this.Status.Text = "状态";
+            this.Status.Width = 90;
+            // 
+            // Dest
+            // 
+            this.Dest.Text = "目标目录";
+            this.Dest.Width = 300;
             // 
             // Logs
             // 
-            this.Logs.Text = "Logs";
+            this.Logs.Text = "操作日志";
             this.Logs.Width = 250;
             // 
             // gridMenu
@@ -448,41 +487,41 @@
             this.undoToolStripMenuItem,
             this.exportToolStripMenuItem});
             this.gridMenu.Name = "gridMenu";
-            this.gridMenu.Size = new System.Drawing.Size(188, 164);
+            this.gridMenu.Size = new System.Drawing.Size(213, 164);
             // 
             // retryToolStripMenuItem
             // 
             this.retryToolStripMenuItem.Name = "retryToolStripMenuItem";
-            this.retryToolStripMenuItem.Size = new System.Drawing.Size(187, 32);
-            this.retryToolStripMenuItem.Text = "Retry";
+            this.retryToolStripMenuItem.Size = new System.Drawing.Size(212, 32);
+            this.retryToolStripMenuItem.Text = "Retry Selected";
             this.retryToolStripMenuItem.Click += new System.EventHandler(this.retryToolStripMenuItem_Click);
             // 
             // goSource
             // 
             this.goSource.Name = "goSource";
-            this.goSource.Size = new System.Drawing.Size(187, 32);
+            this.goSource.Size = new System.Drawing.Size(212, 32);
             this.goSource.Text = "Go Source";
             this.goSource.Click += new System.EventHandler(this.goSource_Click);
             // 
             // goDest
             // 
             this.goDest.Name = "goDest";
-            this.goDest.Size = new System.Drawing.Size(187, 32);
+            this.goDest.Size = new System.Drawing.Size(212, 32);
             this.goDest.Text = "Go Dest";
             this.goDest.Click += new System.EventHandler(this.goDest_Click);
             // 
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(187, 32);
-            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(212, 32);
+            this.undoToolStripMenuItem.Text = "Undo Selected";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(187, 32);
-            this.exportToolStripMenuItem.Text = "Export Result";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(212, 32);
+            this.exportToolStripMenuItem.Text = "Export All Result";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // cbDest
@@ -659,7 +698,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(878, 1061);
+            this.ClientSize = new System.Drawing.Size(878, 977);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btPreview);
@@ -672,7 +711,7 @@
             this.Controls.Add(this.chkEmpty);
             this.Controls.Add(this.cbDest);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelSwitch);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.cbSrc);
             this.Controls.Add(this.statusStrip1);
@@ -734,7 +773,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
         private System.Windows.Forms.ToolStripStatusLabel tssError;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelSwitch;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader Source;
         private System.Windows.Forms.ColumnHeader Dest;
@@ -762,6 +801,10 @@
         private System.Windows.Forms.TextBox txtRenameFilter;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ToolStripStatusLabel tssUndo;
+        private System.Windows.Forms.ToolStripStatusLabel tssRetry;
+        private System.Windows.Forms.ToolStripStatusLabel splitA;
+        private System.Windows.Forms.ToolStripStatusLabel splitB;
     }
 }
 

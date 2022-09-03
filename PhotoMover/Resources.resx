@@ -141,8 +141,17 @@
   <data name="str_error" xml:space="preserve">
     <value>出错：</value>
   </data>
+  <data name="str_finished" xml:space="preserve">
+    <value>-已完成</value>
+  </data>
+  <data name="str_inProgress" xml:space="preserve">
+    <value>-进行中</value>
+  </data>
   <data name="str_rename" xml:space="preserve">
     <value>改名:</value>
+  </data>
+  <data name="str_Retry" xml:space="preserve">
+    <value>重试</value>
   </data>
   <data name="str_skip" xml:space="preserve">
     <value>跳过:</value>
@@ -150,10 +159,13 @@
   <data name="str_total" xml:space="preserve">
     <value>总共:</value>
   </data>
+  <data name="str_Undo" xml:space="preserve">
+    <value>撤销操作</value>
+  </data>
   <data name="tip_pleaseSelectDestinationFolder" xml:space="preserve">
-    <value>请选择存放处理后照片的文件夹</value>
+    <value>请选择新的放照片的文件夹</value>
   </data>
   <data name="tip_pleaseSelectSourceFolder" xml:space="preserve">
-    <value>请选择待处理照片所在文件夹</value>
+    <value>请选择原来照片所在文件夹</value>
   </data>
 </root>

@@ -133,11 +133,38 @@ namespace PhotoMover {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -已完成.
+        /// </summary>
+        internal static string str_finished {
+            get {
+                return ResourceManager.GetString("str_finished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -进行中.
+        /// </summary>
+        internal static string str_inProgress {
+            get {
+                return ResourceManager.GetString("str_inProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 改名:.
         /// </summary>
         internal static string str_rename {
             get {
                 return ResourceManager.GetString("str_rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 重试.
+        /// </summary>
+        internal static string str_Retry {
+            get {
+                return ResourceManager.GetString("str_Retry", resourceCulture);
             }
         }
         
@@ -160,7 +187,16 @@ namespace PhotoMover {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 请选择存放处理后照片的文件夹.
+        ///   Looks up a localized string similar to 撤销操作.
+        /// </summary>
+        internal static string str_Undo {
+            get {
+                return ResourceManager.GetString("str_Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 请选择新的放照片的文件夹.
         /// </summary>
         internal static string tip_pleaseSelectDestinationFolder {
             get {
@@ -169,7 +205,7 @@ namespace PhotoMover {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 请选择待处理照片所在文件夹.
+        ///   Looks up a localized string similar to 请选择原来照片所在文件夹.
         /// </summary>
         internal static string tip_pleaseSelectSourceFolder {
             get {

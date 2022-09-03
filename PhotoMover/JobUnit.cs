@@ -155,8 +155,9 @@ namespace PhotoMover
             }
         }
 
-        public void Undo()
+        public bool Undo()
         {
+            bool isStatusChanged = false;
             switch (Status)
             {
                 case JobStatus.Copied:
@@ -166,11 +167,14 @@ namespace PhotoMover
                     {
                         File.Delete(RealTargetPath);
                         log("Undo copy done, target file deleted.");
+                        Status = JobStatus.Action_Undo;
                     }
                     catch (Exception ex)
                     {
                         log("Undo copy failed:" + ex.Message);
-                    }                    
+                        Status = JobStatus.Error;
+                    }
+                    isStatusChanged = true;
                     break;
                 case JobStatus.Moved:
                 case JobStatus.Rename_Moved:
@@ -179,20 +183,24 @@ namespace PhotoMover
                     {
                         File.Move(RealTargetPath, SourcePath);
                         log("Undo move done, file restored to original location.");
+                        Status = JobStatus.Action_Undo;
                     }
                     catch (Exception ex)
                     {
                         log("Undo move failed:" + ex.Message);
+                        Status = JobStatus.Error;
                     }
+                    isStatusChanged = true;
                     break;
-                case JobStatus.Skipped:
-                case JobStatus.NotProcessed:
-                case JobStatus.InProgress:
-                case JobStatus.Error:
+                //case JobStatus.Skipped:
+                //case JobStatus.NotProcessed:
+                //case JobStatus.InProgress:
+                //case JobStatus.Error:
                 default:
                     log("Current job status not able to undo.");
                     break;
             }
+            return isStatusChanged;
         }
         public void Retry()
         {
@@ -267,7 +275,7 @@ namespace PhotoMover
 
             CalculatedTargetPath = Path.Combine(cfg.TargetBasePath, folder4CurFile, targetFileName);
             isTargetPathNameCalculated = true;
-            Status = JobStatus.TargetNameGenerated;
+            Status = JobStatus.NameGenerated;
             log("Calculate for target file name finished.");
         }
 
@@ -302,12 +310,13 @@ namespace PhotoMover
     {
         NotProcessed,
         InProgress,
-        TargetNameGenerated,
+        NameGenerated,
         Error,
         Copied,
         Moved,
         Skipped,
         Rename_Copied,
         Rename_Moved,
+        Action_Undo,
     }
 }

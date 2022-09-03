@@ -5,12 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
+using System.Drawing;
 
 namespace PhotoMover
 {
     public partial class MainForm : Form
     {
-        private List<JobUnit> jobs;
         public MainForm()
         {
             InitializeComponent();
@@ -123,6 +124,7 @@ namespace PhotoMover
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            JobStartTime = DateTimeOffset.Now;
             Program.AppConfig.isPreviewOnly = false;
             trigger_bgw();
         }
@@ -143,6 +145,7 @@ namespace PhotoMover
             tssRenamed.Text = Resources.str_rename + _renamed.ToString();
             _error = 0;
             tssError.Text = Resources.str_error + _error.ToString();
+            panelSwitch.BackColor = Color.YellowGreen;
             ResetState();
         }
 
@@ -187,14 +190,16 @@ namespace PhotoMover
                 cfg.RenameFileFilter = txtRenameFilter.Text;
                 cfg.RenameFileTemplate = txtRenameTemplate.Text;
                 cfg.TargetRule = rbtSkip.Checked ? RuleForTargetExists.skip : rbtReplace.Checked ? RuleForTargetExists.overwrite : RuleForTargetExists.rename;
-                jobs = new List<JobUnit>();
                 initStatus();
-                //object[] argument = new object[] { cbSrc.Text, cbDest.Text, chkSub.Checked, cbTreeType.Text };
                 this.bgw.RunWorkerAsync(cfg);
                 btnOk.Enabled = false;
                 btnOk.Visible = false;
                 btPreview.Enabled = false;
                 btnStop.Visible = true;
+                splitA.Visible = false;
+                splitB.Visible = false;
+                tssUndo.Visible = false;
+                tssRetry.Visible = false;                
             }
         }
         private void bgw_DoWork(object sender, DoWorkEventArgs e)
@@ -215,8 +220,7 @@ namespace PhotoMover
             }
             else
             {
-                //MessageBox.Show("Finished!", "Photo Mover", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                msgShower(Resources.msg_finished);
+                msgShower(Resources.msg_finished + "\r\nTime cost: " + DateTimeOffset.Now.Subtract(JobStartTime).TotalMilliseconds + "ms");
             }
             btnOk.Enabled = true;
             btnOk.Visible = true;
@@ -240,6 +244,7 @@ namespace PhotoMover
             srcIdx.Clear();
         }
         Dictionary<string, int> srcIdx;
+        DateTimeOffset JobStartTime;
         public void UpdateState(JobUnit job)
         {
             if (this.InvokeRequired)
@@ -253,8 +258,8 @@ namespace PhotoMover
                 if (srcIdx.ContainsKey(job.SourcePath))
                 {
                     int idx = srcIdx[job.SourcePath];
-                    this.listView1.Items[idx].SubItems[1].Text = job.CalculatedTargetPath;
-                    this.listView1.Items[idx].SubItems[2].Text = job.Status.ToString();
+                    this.listView1.Items[idx].SubItems[1].Text = job.Status.ToString();
+                    this.listView1.Items[idx].SubItems[2].Text = job.CalculatedTargetPath;
                     this.listView1.Items[idx].SubItems[3].Text = job.StatusLog;
                 }
                 else
@@ -263,18 +268,25 @@ namespace PhotoMover
                     ListViewItem lvi = this.listView1.Items.Add(job.SourcePath);
                     lvi.Tag = job;
                     srcIdx[job.SourcePath] = lvi.Index;
-                    lvi.SubItems.Add(job.CalculatedTargetPath);
                     lvi.SubItems.Add(job.Status.ToString());
+                    lvi.SubItems.Add(job.CalculatedTargetPath);
                     lvi.SubItems.Add(job.StatusLog);
                 }
-
-                if (Program.AppConfig.ShowList)
+                if (Program.AppConfig.ShowList && listView1.SelectedItems.Count == 0)
                 {
                     //scroll to end
                     int visibleItems = listView1.ClientSize.Height / listView1.Items[0].Bounds.Height;
                     if (visibleItems > 1)
                         listView1.TopItem = listView1.Items[Math.Max(listView1.Items.Count - visibleItems + 1, 0)];
                 }
+                if (_error > 0)
+                    panelSwitch.BackColor = Color.Red;
+                else if (_skipped > 0)
+                    panelSwitch.BackColor = Color.Orange;
+                else if(_renamed > 0)
+                    panelSwitch.BackColor = Color.Turquoise;
+                else
+                    panelSwitch.BackColor = Color.Lime;
             }
         }
 
@@ -440,18 +452,47 @@ namespace PhotoMover
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ((JobUnit)listView1.SelectedItems[0].Tag).Undo();
+            actionForSelectedItems("Undo", tssUndo);
         }
 
         private void retryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ((JobUnit)listView1.SelectedItems[0].Tag).Retry();
+            actionForSelectedItems("Retry", tssRetry);
+        }
+
+        private void actionForSelectedItems(String action, ToolStripStatusLabel tss)
+        {
+            if (listView1.SelectedItems.Count == 0)
+                return;
+
+            splitA.Visible = true;
+            splitB.Visible = true;
+            tss.Visible = true;
+            string actionLocName = Resources.ResourceManager.GetString("str_" + action);
+            UpdateStatusBar(tss, actionLocName + Resources.str_inProgress);
+            foreach (var node in listView1.SelectedItems)
+            {
+                var job = ((JobUnit)((ListViewItem)node).Tag);
+                MethodInfo theMethod = job.GetType().GetMethod(action);
+                theMethod.Invoke(job, null);
+                UpdateState(job);
+            }
+            UpdateStatusBar(tss, actionLocName + Resources.str_finished);
         }
 
         private void cbRenameFiles_CheckedChanged(object sender, EventArgs e)
         {
             txtRenameFilter.Enabled = cbRenameFiles.Checked;
             txtRenameTemplate.Enabled = cbRenameFiles.Checked;
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //hide the undo/redo on status bar
+            splitA.Visible = false;
+            splitB.Visible = false;
+            tssUndo.Visible = false;
+            tssRetry.Visible = false;
         }
 
         private void goDest_Click(object sender, EventArgs e)
